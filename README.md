@@ -1,4 +1,4 @@
-# react-timeline-component
+# react-elegant-timeline
 
 A React timeline component with elegant styles.
 
@@ -14,19 +14,19 @@ or check it out at my [personal website](https://www.anduscheung.com) (click the
 # Installation
 
 ```bash
-npm install react-timeline-component
+npm install react-elegant-timeline
 ```
 
 or
 
 ```bash
-yarn add react-timeline-component
+yarn add react-elegant-timeline
 ```
 
 # Usage Example
 
 ```Javascript
-import Timeline from 'react-timeline-component';
+import Timeline from 'react-elegant-timeline';
 import "react-elegant-timeline/dist/styles.css";
 
 const data = [
