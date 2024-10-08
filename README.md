@@ -2,6 +2,9 @@
 
 A React timeline component with elegant styles.
 
+[![npm version](https://img.shields.io/npm/v/react-elegant-timeline.svg?style=flat)](https://www.npmjs.com/package/react-elegant-timeline)
+[![Coverage Status](https://coveralls.io/repos/github/anduscheung/react-elegant-timeline/badge.svg?branch=main)](https://coveralls.io/github/anduscheung/react-elegant-timeline?branch=main)
+
 # Demo
 
 ![gif](https://github.com/anduscheung/my-icon-host/blob/main/react-elegant-timeline-demo.gif)
