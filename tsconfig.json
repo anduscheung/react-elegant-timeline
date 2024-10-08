@@ -9,9 +9,10 @@
     "skipLibCheck": true,
     "moduleResolution": "Node",
     "outDir": "./dist",
+    "rootDir": "src",
     "sourceMap": true,
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["src", "tests"],
+  "include": ["src", "src/index.ts"],
   "exclude": ["node_modules", "dist"]
 }

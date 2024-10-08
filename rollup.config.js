@@ -3,7 +3,7 @@ const postcss = require('rollup-plugin-postcss');
 const pkg = require('./package.json');
 
 module.exports = {
-  input: 'src/Timeline.tsx',
+  input: 'src/index.ts', 
   output: [
     {
       file: pkg.main,
@@ -25,8 +25,8 @@ module.exports = {
     }),
     postcss({
       extract: 'styles.css', 
-      minimize: true,            
-      modules: false,             
+      minimize: true,        
+      modules: false,         
     }),
   ],
 };
