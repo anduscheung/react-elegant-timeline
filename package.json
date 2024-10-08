@@ -8,7 +8,15 @@
     "build": "rollup -c",
     "test": "jest --coverage"
   },
-  "author": "",
+  "author": "Andus Cheung",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anduscheung/react-elegant-timeline.git"
+  },
+  "homepage": "https://github.com/anduscheung/react-elegant-timeline",
+  "bugs": {
+    "url": "https://github.com/anduscheung/react-elegant-timeline/issues"
+  },
   "license": "MIT",
   "description": "A React timeline component with elegant styles.",
   "peerDependencies": {
