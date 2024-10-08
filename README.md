@@ -48,18 +48,20 @@ const data = [
 
 # Props
 
-## data: Array of Objects (Required)
+## data: Array of Objects
 
 List of timeline items to render.
 
 Each object in the data array should have the following properties:
 
-    •	title: string (required) — Title of the timeline item
-    •	description: string (required) — Description text for the item
-    •	tagline: string (required) — Tagline for the item
-    •	link: string (required) — URL for the button link
-    •	image: string (optional) — URL for an image (optional)
-    •	buttonText: string (optional) — Custom text for the button (default: “Click for more”)
+| Prop          | Type   | Required | Default          | Description                           |
+| ------------- | ------ | -------- | ---------------- | ------------------------------------- |
+| `title`       | string | ☑️       | None             | Title of the timeline item            |
+| `description` | string | ☑️       | None             | Description text for the item         |
+| `tagline`     | string | ☑️       | None             | Tagline for the item                  |
+| `link`        | string | ☑️       | None             | URL for the button link               |
+| `image`       | string |          | None             | URL for an image (optional)           |
+| `buttonText`  | string |          | "Click for more" | Custom text for the button (optional) |
 
 # Custom Styles
 
