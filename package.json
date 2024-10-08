@@ -37,5 +37,16 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "timeline",
+    "react-component",
+    "elegant-timeline",
+    "react-ui",
+    "responsive-timeline",
+    "interactive-timeline",
+    "react-event-timeline",
+    "modern-timeline"
   ]
 }
