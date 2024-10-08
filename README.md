@@ -27,7 +27,7 @@ yarn add react-timeline-component
 
 ```Javascript
 import Timeline from 'react-timeline-component';
-import 'react-timeline-component/dist/timeline.css';
+import "react-elegant-timeline/dist/styles.css";
 
 const data = [
   {
