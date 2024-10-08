@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js 20.9.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.9.0" # Use Node.js 20.9.0
+
+      - name: Install Dependencies with Yarn
+        run: yarn install # Install project dependencies using Yarn
+
+      - name: Run Tests with Coverage
+        run: yarn test --coverage # Run tests and generate coverage report
+
+      - name: Upload Coverage to Coveralls
+        run: npx coveralls < coverage/lcov.info # Upload coverage to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} # Use the secret token from Coveralls
