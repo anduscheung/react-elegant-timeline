@@ -14,7 +14,7 @@ const Timeline: React.FC<{
   }[];
 }> = ({ data }) => {
   return (
-    <div className="timeline">
+    <div className="timeline" id="elegant-timeline">
       {data.map((item, index) => {
         return (
           <TimelineItem

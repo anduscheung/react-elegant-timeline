@@ -1,3 +1,8 @@
+.timeline * {
+  margin: 0;
+  padding: 0;
+}
+
 .timeline {
   width: 100%;
   display: flex;
@@ -84,19 +89,24 @@
   color: #fff;
 }
 
-h1 {
+.timeline h1 {
   font-size: 2.5rem;
+  line-height: 1.5;
+  font-weight: inherit;
 }
 
-h2 {
+.timeline h2 {
   color: #e0e0e0;
   font-size: 1.5rem;
+  font-weight: 500;
   margin-bottom: 1rem;
+  line-height: 1.5;
 }
 
-p {
+.timeline p {
   color: #cccccc;
   font-size: 1rem;
+  font-weight: 500;
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
@@ -109,6 +119,8 @@ p {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
   transition: background-color 0.3s ease;
   width: max-content;
 }
