@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Timeline from "../src/Timeline";
-import TimelineItem from "../src/TimelineItem";
+import Timeline from "../Timeline";
+import TimelineItem from "../TimelineItem";
 
 test("renders timeline content correctly", () => {
   const mockData = [

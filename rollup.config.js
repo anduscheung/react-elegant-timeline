@@ -22,6 +22,11 @@ module.exports = {
   plugins: [
     typescript({
       typescript: require('typescript'),
+      tsconfigOverride: {
+        exclude: [
+          "src/tests"
+        ]
+      }
     }),
     postcss({
       extract: 'styles.css', 

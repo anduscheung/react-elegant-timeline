@@ -1,4 +1,4 @@
-import formatNumber from "../src/FormatNumber";
+import formatNumber from "../FormatNumber";
 
 describe("formatNumber", () => {
   test("returns a number prefixed with 0 when the index + 1 is less than 10", () => {
