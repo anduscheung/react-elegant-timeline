@@ -113,19 +113,17 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
             />
           )}
           <p>{description}</p>
-          {showButton && (
-            <button
-              data-testid={`timeline-button-${this.number}`}
-              className="timeline__button"
-              onClick={() => {
-                onButtonClick &&
-                  onButtonClick(this.props.data, this.props.index);
-                link && window.open(link, "_blank");
-              }}
-            >
-              {buttonText ? buttonText : "Click for more"}
-            </button>
-          )}
+
+          <button
+            data-testid={`timeline-button-${this.number}`}
+            className="timeline__button"
+            onClick={() => {
+              onButtonClick && onButtonClick(this.props.data, this.props.index);
+              link && window.open(link, "_blank");
+            }}
+          >
+            {buttonText ? buttonText : "Click for more"}
+          </button>
         </div>
       </div>
     );
