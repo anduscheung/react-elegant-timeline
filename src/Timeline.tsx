@@ -1,6 +1,5 @@
 import React from "react";
 import TimelineItem from "./TimelineItem";
-import FormatNumber from "./FormatNumber";
 import "./Timeline.css";
 
 export interface TimelineItemData {
@@ -10,24 +9,22 @@ export interface TimelineItemData {
   link?: string;
   image?: string;
   buttonText?: string;
+  showButton?: boolean;
 }
 
 const Timeline: React.FC<{
   data: TimelineItemData[];
-}> = ({ data }) => {
+  onButtonClick?: (data: TimelineItemData, index: number) => void;
+}> = ({ data, onButtonClick }) => {
   return (
     <div className="timeline" id="elegant-timeline">
       {data.map((item, index) => {
         return (
           <TimelineItem
             key={index}
-            number={FormatNumber(index)}
-            title={item.title}
-            description={item.description}
-            tagline={item.tagline}
-            link={item.link}
-            image={item.image}
-            buttonText={item.buttonText}
+            index={index}
+            data={item}
+            onButtonClick={onButtonClick}
           />
         );
       })}

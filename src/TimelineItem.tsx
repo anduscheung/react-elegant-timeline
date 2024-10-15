@@ -1,9 +1,11 @@
 import React, { Component, createRef } from "react";
 import "./Timeline.css";
 import { TimelineItemData } from "./Timeline";
-
-interface TimelineItemProps extends TimelineItemData {
-  number: string;
+import FormatNumber from "./FormatNumber";
+interface TimelineItemProps {
+  index: number;
+  data: TimelineItemData;
+  onButtonClick?: (data: TimelineItemData, index: number) => void;
 }
 
 interface TimelineItemState {
@@ -13,6 +15,7 @@ interface TimelineItemState {
 class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
   itemRef: React.RefObject<HTMLDivElement>;
   progressRef: React.RefObject<HTMLDivElement>;
+  number: string;
 
   constructor(props: TimelineItemProps) {
     super(props);
@@ -22,8 +25,8 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
 
     this.itemRef = createRef();
     this.progressRef = createRef();
-
     this.handleScroll = this.handleScroll.bind(this);
+    this.number = FormatNumber(this.props.index);
   }
 
   componentDidMount() {
@@ -57,8 +60,18 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
   }
 
   render() {
-    const { number, title, description, tagline, link, image, buttonText } =
-      this.props;
+    const {
+      data: {
+        title,
+        description,
+        tagline,
+        link,
+        image,
+        buttonText,
+        showButton = true,
+      },
+      onButtonClick,
+    } = this.props;
     const { isVisible } = this.state;
 
     return (
@@ -66,23 +79,23 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
         <div className="timeline__empty-content"></div>
         <div className="timeline__main-axis">
           <div
-            data-testid={`timeline-indicator-frame-${number}`}
+            data-testid={`timeline-indicator-frame-${this.number}`}
             className={`timeline__indicator-frame ${
               isVisible ? "timeline__indicator-frame--active" : ""
             }`}
           >
-            <h1>{number}</h1>
+            <h1>{this.number}</h1>
           </div>
           <div className="timeline__progress-bar">
             <div
-              data-testid={`timeline-progress-${number}`}
+              data-testid={`timeline-progress-${this.number}`}
               className="timeline__progress"
               ref={this.progressRef}
             ></div>
           </div>
         </div>
         <div
-          data-testid={`timeline-item-content-${number}`}
+          data-testid={`timeline-item-content-${this.number}`}
           className={`timeline__item-content ${
             isVisible ? "timeline__item-content--visible" : ""
           }`}
@@ -91,7 +104,7 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
           <h2>{title}</h2>
           {image && (
             <img
-              data-testid={`timeline-image-${number}`}
+              data-testid={`timeline-image-${this.number}`}
               src={image}
               alt={title}
               width={200}
@@ -100,11 +113,15 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
             />
           )}
           <p>{description}</p>
-          {link && (
+          {showButton && (
             <button
-              data-testid={`timeline-button-${number}`}
+              data-testid={`timeline-button-${this.number}`}
               className="timeline__button"
-              onClick={() => window.open(link, "_blank")}
+              onClick={() => {
+                onButtonClick &&
+                  onButtonClick(this.props.data, this.props.index);
+                link && window.open(link, "_blank");
+              }}
             >
               {buttonText ? buttonText : "Click for more"}
             </button>

@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Timeline from "../Timeline";
 import TimelineItem from "../TimelineItem";
 
-test("renders timeline content correctly", () => {
+describe("Timeline content rendering correctness", () => {
   const mockData = [
     {
       title: "Event 1",
@@ -22,65 +22,149 @@ test("renders timeline content correctly", () => {
     {
       title: "Event 3",
       description: "Description of event 3",
-      buttonText: "123",
+      buttonText: "Should be unused when button showButton is false",
+      link: "Should be unused when button showButton is false",
+      showButton: false,
     },
   ];
-  render(<Timeline data={mockData} />);
+  test("renders timeline content correctly", () => {
+    render(<Timeline data={mockData} />);
 
-  // first timeline item
-  expect(screen.getByText("01", { selector: "h1" })).toBeInTheDocument();
-  expect(
-    screen.getByText(mockData[0].title, { selector: "h2" })
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(mockData[0].description, { selector: "p" })
-  ).toBeInTheDocument();
-  expect(screen.queryByTestId("timeline-image-01")).toBeInTheDocument();
-  expect(
-    screen.getByText("Click for more", { selector: "button" })
-  ).toBeInTheDocument();
+    // first timeline item
+    expect(screen.getByText("01", { selector: "h1" })).toBeInTheDocument();
+    expect(
+      screen.getByText(mockData[0].title, { selector: "h2" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(mockData[0].description, { selector: "p" })
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("timeline-image-01")).toBeInTheDocument();
+    expect(
+      screen.getByText("Click for more", { selector: "button" })
+    ).toBeInTheDocument();
 
-  // second timeline item (no image, custom button text)
-  expect(screen.getByText("02", { selector: "h1" })).toBeInTheDocument();
-  expect(
-    screen.getByText(mockData[1].title, { selector: "h2" })
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(mockData[1].description, { selector: "p" })
-  ).toBeInTheDocument();
-  expect(screen.queryByTestId("timeline-image-02")).not.toBeInTheDocument();
-  expect(
-    screen.getByText(mockData[1].buttonText!, { selector: "button" })
-  ).toBeInTheDocument();
+    // second timeline item (no image, custom button text)
+    expect(screen.getByText("02", { selector: "h1" })).toBeInTheDocument();
+    expect(
+      screen.getByText(mockData[1].title, { selector: "h2" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(mockData[1].description, { selector: "p" })
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("timeline-image-02")).not.toBeInTheDocument();
+    expect(
+      screen.getByText(mockData[1].buttonText!, { selector: "button" })
+    ).toBeInTheDocument();
 
-  // third timeline item (no image, no tagline, no hide button)
-  expect(screen.queryByTestId("timeline__tagline")).not.toBeInTheDocument();
-  expect(
-    screen.getByText(mockData[2].title, { selector: "h2" })
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(mockData[2].description, { selector: "p" })
-  ).toBeInTheDocument();
-  expect(screen.queryByTestId("timeline-image-03")).not.toBeInTheDocument();
-  expect(screen.queryByTestId("timeline-button-03")).not.toBeInTheDocument();
+    // third timeline item (no image, no tagline, no button)
+    expect(screen.queryByTestId("timeline__tagline")).not.toBeInTheDocument();
+    expect(
+      screen.getByText(mockData[2].title, { selector: "h2" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(mockData[2].description, { selector: "p" })
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("timeline-image-03")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("timeline-button-03")).not.toBeInTheDocument();
+  });
 });
 
-test("calls window.open with correct url when button is clicked", () => {
+describe("TimelineItem button click behavior", () => {
   const mockUrl = "https://example.com";
   const openSpy = jest.spyOn(window, "open").mockImplementation(() => null);
 
-  const { getByText } = render(
-    <TimelineItem
-      number="01"
-      title="Test Title"
-      description="Test Description"
-      tagline="Test Tagline"
-      link={mockUrl}
-      image="test.png"
-    />
-  );
-  fireEvent.click(getByText("Click for more"));
-  expect(openSpy).toHaveBeenCalledWith(mockUrl, "_blank");
+  afterEach(() => {
+    openSpy.mockClear();
+  });
+
+  test("calls onButtonClick when provided and no link is present", () => {
+    const mockOnClick = jest.fn();
+
+    render(
+      <TimelineItem
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          buttonText: "Click here",
+        }}
+        onButtonClick={mockOnClick}
+      />
+    );
+
+    fireEvent.click(screen.getByText("Click here"));
+    expect(mockOnClick).toHaveBeenCalledWith(
+      {
+        title: "Test Title",
+        description: "Test Description",
+        buttonText: "Click here",
+      },
+      0
+    );
+    expect(openSpy).not.toHaveBeenCalled();
+  });
+
+  test("opens link when provided and no onButtonClick is present", () => {
+    render(
+      <TimelineItem
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          buttonText: "Click here",
+          link: mockUrl,
+        }}
+      />
+    );
+
+    fireEvent.click(screen.getByText("Click here"));
+    expect(openSpy).toHaveBeenCalledWith(mockUrl, "_blank");
+  });
+
+  test("calls both onButtonClick and opens link when both are provided", () => {
+    const mockOnClick = jest.fn();
+
+    render(
+      <TimelineItem
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          buttonText: "Click here",
+          link: mockUrl,
+        }}
+        onButtonClick={mockOnClick}
+      />
+    );
+
+    fireEvent.click(screen.getByText("Click here"));
+    expect(mockOnClick).toHaveBeenCalledWith(
+      {
+        title: "Test Title",
+        description: "Test Description",
+        buttonText: "Click here",
+        link: mockUrl,
+      },
+      0
+    );
+    expect(openSpy).toHaveBeenCalledWith(mockUrl, "_blank");
+  });
+
+  test("does nothing when neither onButtonClick nor link is provided", () => {
+    render(
+      <TimelineItem
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          buttonText: "Click here",
+        }}
+      />
+    );
+
+    fireEvent.click(screen.getByText("Click here"));
+    expect(openSpy).not.toHaveBeenCalled(); // window.open should not be called
+  });
 });
 
 describe("TimelineItem scrolling behavior", () => {
@@ -108,12 +192,14 @@ describe("TimelineItem scrolling behavior", () => {
 
     const { getByTestId } = render(
       <TimelineItem
-        number="01"
-        title="Test Title"
-        description="Test Description"
-        tagline="Test Tagline"
-        link="/test"
-        image="test.png"
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          tagline: "Test Tagline",
+          link: "/test",
+          image: "test.png",
+        }}
       />
     );
 
@@ -143,12 +229,14 @@ describe("TimelineItem scrolling behavior", () => {
 
     const { getByTestId } = render(
       <TimelineItem
-        number="01"
-        title="Test Title"
-        description="Test Description"
-        tagline="Test Tagline"
-        link="/test"
-        image="test.png"
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          tagline: "Test Tagline",
+          link: "/test",
+          image: "test.png",
+        }}
       />
     );
 
@@ -179,12 +267,14 @@ describe("TimelineItem scrolling behavior", () => {
 
     const { getByTestId } = render(
       <TimelineItem
-        number="01"
-        title="Test Title"
-        description="Test Description"
-        tagline="Test Tagline"
-        link="/test"
-        image="test.png"
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          tagline: "Test Tagline",
+          link: "/test",
+          image: "test.png",
+        }}
       />
     );
 
@@ -215,12 +305,14 @@ describe("TimelineItem scrolling behavior", () => {
 
     const { getByTestId } = render(
       <TimelineItem
-        number="01"
-        title="Test Title"
-        description="Test Description"
-        tagline="Test Tagline"
-        link="/test"
-        image="test.png"
+        index={0}
+        data={{
+          title: "Test Title",
+          description: "Test Description",
+          tagline: "Test Tagline",
+          link: "/test",
+          image: "test.png",
+        }}
       />
     );
 

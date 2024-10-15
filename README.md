@@ -14,44 +14,51 @@ or check it out at my [personal website](https://www.anduscheung.com) (click the
 # Installation
 
 ```bash
+# Install with npm
 npm install react-elegant-timeline
 ```
 
 or
 
 ```bash
+# Install with yarn
 yarn add react-elegant-timeline
 ```
 
 # Usage Example
 
 ```Javascript
+import React from 'react';
 import Timeline from 'react-elegant-timeline';
 import "react-elegant-timeline/dist/styles.css";
 
 const data = [
-  {
-    title: "Event 1",
-    description: "Description of event 1",
-    tagline: "Tagline 1",
-    link: "https://example1.com",
-    image: "image1.png",
-  },
-  {
-    title: "Event 2",
-    description: "Description of event 2",
-    tagline: "Tagline 2",
-    link: "https://example2.com",
-    buttonText: "Custom text for button 2",
-  },
-  {
-    title: "Event 3",
-    description: "Description of event 3",
-    buttonText: "Custom text for button 3",
-  },
-];
+    {
+      title: "Event 1",
+      description: "Description of event 1",
+      tagline: "Tagline 1",
+      link: "https://example1.com",
+      image: "image1.png",
+    },
+    {
+      title: "Event 2",
+      description: "Description of event 2",
+      tagline: "Tagline 2",
+      link: "https://example2.com",
+      buttonText: "Custom button text for button 2",
+    },
+    {
+      title: "Event 3",
+      description: "Description of event 3",
+      showButton: false,
+    },
+  ];
 
-<Timeline data={data} />;
+const App = () => {
+  return <Timeline data={data} />;
+};
+
+export default App;
 ```
 
 # Props
@@ -62,18 +69,32 @@ List of timeline items to render.
 
 Each object in the data array should have the following properties:
 
-| Prop          | Type   | Required | Default          | Description                                                                           |
-| ------------- | ------ | -------- | ---------------- | ------------------------------------------------------------------------------------- |
-| `title`       | string | ☑️       | None             | Title of the timeline item                                                            |
-| `description` | string | ☑️       | None             | Description text for the item                                                         |
-| `tagline`     | string |          | None             | (optional) Tagline for the item, tagline will be hidden if not provided               |
-| `link`        | string |          | None             | (optional) URL for the button link, button will be hidden if you do not provide       |
-| `image`       | string |          | None             | (optional) URL for an image, image will be hidden if not provided                     |
-| `buttonText`  | string |          | "Click for more" | (optional) Custom text for the button, if provided, will override default button text |
+| Prop          | Type    | Required | Default          | Description                                        |
+| ------------- | ------- | -------- | ---------------- | -------------------------------------------------- |
+| `title`       | string  | ☑️       | None             | Title of the timeline item                         |
+| `description` | string  | ☑️       | None             | Description text for the item                      |
+| `tagline`     | string  |          | None             | (optional) Tagline of the item                     |
+| `link`        | string  |          | None             | (optional) URL to open when the button is clicked  |
+| `image`       | string  |          | None             | (optional) URL of the image that you want to show  |
+| `buttonText`  | string  |          | "Click for more" | (optional) Custom text for the button              |
+| `showButton`  | boolean |          | true             | (optional) Controls whether the button should show |
+
+## onButtonClick: Function (optional)
+
+A custom click handler function to be called when the button is clicked. If both onButtonClick and link are provided, onButtonClick is called first, and the link will open afterward. If no link is provided and onButtonClick is not defined, the button will do nothing.
+
+    •	Type: (data: TimelineItemData, index: number) => void
+    •	Default: undefined
 
 # Custom Styles
 
 By default, the timeline is styled with timeline.css. You can override the styles by providing your own custom CSS.
+
+```CSS
+.timeline__item {
+  background-color: #f4f4f4; /* Custom styles to override the default timeline item background */
+}
+```
 
 # License
 
