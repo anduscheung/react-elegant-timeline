@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - "*" # Run on all branches, including main
   pull_request:
     branches:
-      - main
+      - main # Run when a PR targets the main branch
 
 jobs:
   test:
@@ -26,7 +26,8 @@ jobs:
       - name: Run Tests with Coverage
         run: yarn test --coverage # Run tests and generate coverage report
 
-      - name: Upload Coverage to Coveralls
+      - name: Upload Coverage to Coveralls (only on main)
+        if: github.ref == 'refs/heads/main' # Only run if branch is main
         run: npx coveralls < coverage/lcov.info # Upload coverage to Coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} # Use the secret token from Coveralls
