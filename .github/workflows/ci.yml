@@ -3,10 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - "*" # Run on all branches
+      - "!main" # Exclude the main branch
   pull_request:
     branches:
-      - main
+      - main # Run when a PR targets the main branch
 
 jobs:
   test:
