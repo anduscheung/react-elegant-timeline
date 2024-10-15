@@ -20,8 +20,6 @@ or check it out at my [personal website](https://www.anduscheung.com) (click the
 npm install react-elegant-timeline
 ```
 
-or
-
 ```bash
 # Install with yarn
 yarn add react-elegant-timeline
