@@ -1,14 +1,9 @@
 import React, { Component, createRef } from "react";
 import "./Timeline.css";
+import { TimelineItemData } from "./Timeline";
 
-interface TimelineItemProps {
+interface TimelineItemProps extends TimelineItemData {
   number: string;
-  title: string;
-  description: string;
-  tagline: string;
-  url: string;
-  image?: string;
-  buttonText?: string;
 }
 
 interface TimelineItemState {
@@ -62,7 +57,7 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
   }
 
   render() {
-    const { number, title, description, tagline, url, image, buttonText } =
+    const { number, title, description, tagline, link, image, buttonText } =
       this.props;
     const { isVisible } = this.state;
 
@@ -92,7 +87,7 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
             isVisible ? "timeline__item-content--visible" : ""
           }`}
         >
-          <span className="timeline__tagline">{tagline}</span>
+          {tagline && <span className="timeline__tagline">{tagline}</span>}
           <h2>{title}</h2>
           {image && (
             <img
@@ -105,12 +100,15 @@ class TimelineItem extends Component<TimelineItemProps, TimelineItemState> {
             />
           )}
           <p>{description}</p>
-          <button
-            className="timeline__button"
-            onClick={() => window.open(url, "_blank")}
-          >
-            {buttonText ? buttonText : "Click for more"}
-          </button>
+          {link && (
+            <button
+              data-testid={`timeline-button-${number}`}
+              className="timeline__button"
+              onClick={() => window.open(link, "_blank")}
+            >
+              {buttonText ? buttonText : "Click for more"}
+            </button>
+          )}
         </div>
       </div>
     );

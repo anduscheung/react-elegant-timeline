@@ -17,7 +17,12 @@ test("renders timeline content correctly", () => {
       description: "Description of event 2",
       tagline: "Tagline 2",
       link: "https://example2.com",
-      buttonText: "Button 2",
+      buttonText: "Custom button text for button 2",
+    },
+    {
+      title: "Event 3",
+      description: "Description of event 3",
+      buttonText: "123",
     },
   ];
   render(<Timeline data={mockData} />);
@@ -47,6 +52,17 @@ test("renders timeline content correctly", () => {
   expect(
     screen.getByText(mockData[1].buttonText!, { selector: "button" })
   ).toBeInTheDocument();
+
+  // third timeline item (no image, no tagline, no hide button)
+  expect(screen.queryByTestId("timeline__tagline")).not.toBeInTheDocument();
+  expect(
+    screen.getByText(mockData[2].title, { selector: "h2" })
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(mockData[2].description, { selector: "p" })
+  ).toBeInTheDocument();
+  expect(screen.queryByTestId("timeline-image-03")).not.toBeInTheDocument();
+  expect(screen.queryByTestId("timeline-button-03")).not.toBeInTheDocument();
 });
 
 test("calls window.open with correct url when button is clicked", () => {
@@ -59,7 +75,7 @@ test("calls window.open with correct url when button is clicked", () => {
       title="Test Title"
       description="Test Description"
       tagline="Test Tagline"
-      url={mockUrl}
+      link={mockUrl}
       image="test.png"
     />
   );
@@ -96,7 +112,7 @@ describe("TimelineItem scrolling behavior", () => {
         title="Test Title"
         description="Test Description"
         tagline="Test Tagline"
-        url="/test"
+        link="/test"
         image="test.png"
       />
     );
@@ -131,7 +147,7 @@ describe("TimelineItem scrolling behavior", () => {
         title="Test Title"
         description="Test Description"
         tagline="Test Tagline"
-        url="/test"
+        link="/test"
         image="test.png"
       />
     );
@@ -167,7 +183,7 @@ describe("TimelineItem scrolling behavior", () => {
         title="Test Title"
         description="Test Description"
         tagline="Test Tagline"
-        url="/test"
+        link="/test"
         image="test.png"
       />
     );
@@ -203,7 +219,7 @@ describe("TimelineItem scrolling behavior", () => {
         title="Test Title"
         description="Test Description"
         tagline="Test Tagline"
-        url="/test"
+        link="/test"
         image="test.png"
       />
     );

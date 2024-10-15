@@ -3,15 +3,17 @@ import TimelineItem from "./TimelineItem";
 import FormatNumber from "./FormatNumber";
 import "./Timeline.css";
 
+export interface TimelineItemData {
+  title: string;
+  description: string;
+  tagline?: string;
+  link?: string;
+  image?: string;
+  buttonText?: string;
+}
+
 const Timeline: React.FC<{
-  data: {
-    title: string;
-    description: string;
-    tagline: string;
-    link: string;
-    image?: string;
-    buttonText?: string;
-  }[];
+  data: TimelineItemData[];
 }> = ({ data }) => {
   return (
     <div className="timeline" id="elegant-timeline">
@@ -23,7 +25,7 @@ const Timeline: React.FC<{
             title={item.title}
             description={item.description}
             tagline={item.tagline}
-            url={item.link}
+            link={item.link}
             image={item.image}
             buttonText={item.buttonText}
           />

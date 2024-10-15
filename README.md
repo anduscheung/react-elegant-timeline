@@ -32,18 +32,23 @@ import "react-elegant-timeline/dist/styles.css";
 const data = [
   {
     title: "Event 1",
-    description: "Description for event 1",
+    description: "Description of event 1",
     tagline: "Tagline 1",
-    link: "https://example.com/event1",
-    image: "path/to/image1.png",
-    buttonText: "Learn More"
+    link: "https://example1.com",
+    image: "image1.png",
   },
   {
     title: "Event 2",
-    description: "Description for event 2",
+    description: "Description of event 2",
     tagline: "Tagline 2",
-    link: "https://example.com/event2"
-  }
+    link: "https://example2.com",
+    buttonText: "Custom text for button 2",
+  },
+  {
+    title: "Event 3",
+    description: "Description of event 3",
+    buttonText: "Custom text for button 3",
+  },
 ];
 
 <Timeline data={data} />;
@@ -57,14 +62,14 @@ List of timeline items to render.
 
 Each object in the data array should have the following properties:
 
-| Prop          | Type   | Required | Default          | Description                           |
-| ------------- | ------ | -------- | ---------------- | ------------------------------------- |
-| `title`       | string | ☑️       | None             | Title of the timeline item            |
-| `description` | string | ☑️       | None             | Description text for the item         |
-| `tagline`     | string | ☑️       | None             | Tagline for the item                  |
-| `link`        | string | ☑️       | None             | URL for the button link               |
-| `image`       | string |          | None             | URL for an image (optional)           |
-| `buttonText`  | string |          | "Click for more" | Custom text for the button (optional) |
+| Prop          | Type   | Required | Default          | Description                                                                           |
+| ------------- | ------ | -------- | ---------------- | ------------------------------------------------------------------------------------- |
+| `title`       | string | ☑️       | None             | Title of the timeline item                                                            |
+| `description` | string | ☑️       | None             | Description text for the item                                                         |
+| `tagline`     | string |          | None             | (optional) Tagline for the item, tagline will be hidden if not provided               |
+| `link`        | string |          | None             | (optional) URL for the button link, button will be hidden if you do not provide       |
+| `image`       | string |          | None             | (optional) URL for an image, image will be hidden if not provided                     |
+| `buttonText`  | string |          | "Click for more" | (optional) Custom text for the button, if provided, will override default button text |
 
 # Custom Styles
 
